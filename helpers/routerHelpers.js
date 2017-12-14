@@ -39,6 +39,7 @@ module.exports = {
     },
 
     schemas: {
+
         userSchema: Joi.object().keys({
             firstName: Joi.string().required(),
             lastName: Joi.string().required(),
