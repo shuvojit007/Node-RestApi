@@ -13,11 +13,15 @@ router.route('/:userId')
             validateBody(schemas.userSchema)
         ],
         UserController.replaceUser)
-    .patch(UserController.updateUser)
+    .patch([validateParam(schemas.idSchema, 'userId'),
+        validateBody(schemas.userOptionalSchema)
+    ], UserController.updateUser)
     .delete(UserController.removeUser);
 
 router.route('/:userId/cars')
-    .get(UserController.getUserCars)
-    .post(UserController.newUserCar)
+    .get(validateParam(schemas.idSchema, 'userId'), UserController.getUserCars)
+    .post([validateParam(schemas.idSchema, 'userId'),
+        validateBody(schemas.carSchema)
+    ], UserController.newUserCar)
 
 module.exports = router;

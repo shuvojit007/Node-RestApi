@@ -13,36 +13,40 @@ module.exports = {
         const user = await newUser.save();
         res.status(201).json(user);
     },
+    // Validation: Done
     getUser: async(req, res) => {
         // old way = > req.params.userId
         //new way => req.value.params.userId //validate id
         const user = await User.findById(req.value.params.userId);
         res.send(user)
     },
+    // Validation: Done
     replaceUser: async(req, res) => {
-        const newUser = req.body;
-        const user = await User.findByIdAndUpdate(req.params.userId, newUser)
+        const newUser = req.value.body;
+        const user = await User.findByIdAndUpdate(req.value.params.userId, newUser)
         res.status(200).json({ success: true });
     },
+    // Validation: Done
     updateUser: async(req, res) => {
-        const newUser = req.body;
-        const user = await User.findByIdAndUpdate(req.params.userId, newUser)
+        const newUser = req.value.body;
+        const user = await User.findByIdAndUpdate(req.value.params.userId, newUser)
         res.status(200).json({ success: true });
     },
     removeUser: async(req, res) => {
         const user = await User.findByIdAndRemove(req.params.userId)
         res.status(200).json({ success: true });
     },
-
+    // Validation: Done
     getUserCars: async(req, res) => {
-        const user = await User.findById(req.params.userId).populate("cars");
+        const user = await User.findById(req.value.params.userId).populate("cars");
         console.log('user', user);
         res.send(user.cars);
     },
+    // Validation: Done
     newUserCar: async(req, res) => {
-        const newCar = new Car(req.body);
+        const newCar = new Car(req.value.body);
         //get a user
-        const user = await User.findById(req.params.userId);
+        const user = await User.findById(req.value.params.userId);
         //Assign user as a car seller
         newCar.seller = user;
         await newCar.save();
