@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 
 
 //db cn
@@ -9,10 +10,17 @@ mongoose.connect('mongodb://localhost/apipro', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 const app = express();
+
+//Helmet helps you secure your Express apps by
+// setting various HTTP headers. It's not a silver bullet, but it can help!
+app.use(helmet());
 const cars = require('./routes/cars');
 const users = require('./routes/users');
 //middleewares
+// for http req logger
 app.use(morgan('dev'));
+
+//parse the body or params from req
 app.use(bodyParser.json());
 
 //Routes
