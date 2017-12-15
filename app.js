@@ -9,13 +9,15 @@ mongoose.connect('mongodb://localhost/apipro', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 const app = express();
-const user = require('./routes/users');
+const cars = require('./routes/cars');
+const users = require('./routes/users');
 //middleewares
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 //Routes
-app.use('/users', user);
+app.use('/users', users);
+app.use('/cars', cars);
 
 //catch 404 Errors and forward them to error handeler
 app.use((req, res, next) => {
@@ -37,6 +39,8 @@ app.use((err, req, res, next) => {
 });
 
 
+
+
 //start  the server 
 const port = process.env.port || 3000;
-app.listen(port, () => console.log(`Magic is happeing on port ${port}`));
+app.listen(port, () => console.log(`Magic is happeing on port ${port}`))

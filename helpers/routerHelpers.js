@@ -50,10 +50,26 @@ module.exports = {
             lastName: Joi.string(),
             email: Joi.string()
         }),
-        carSchema: Joi.object().keys({
+        usercarSchema: Joi.object().keys({
             make: Joi.string().required(),
             model: Joi.string().required(),
             year: Joi.number().required()
+        }),
+        carSchema: Joi.object().keys({
+            seller: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+            make: Joi.string().required(),
+            model: Joi.string().required(),
+            year: Joi.number().required()
+        }),
+        putcarSchema: Joi.object().keys({
+            make: Joi.string().required(),
+            model: Joi.string().required(),
+            year: Joi.number().required()
+        }),
+        patchcarSchema: Joi.object().keys({
+            make: Joi.string(),
+            model: Joi.string(),
+            year: Joi.number()
         }),
         idSchema: Joi.object().keys({
             param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
